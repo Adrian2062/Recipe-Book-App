@@ -1,0 +1,43 @@
+{% extends 'recipes/base.html' %}
+{% block content %}
+
+<div class="top-bar">
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form method="get" action="{% url 'search_recipe' %}">
+            <input type="text" name="q" placeholder="Search by name or category">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Add Recipe Button -->
+    <div class="add-recipe">
+        <a href="{% url 'add_recipe' %}">
+            <button type="button" class="btn btn-primary">Add Recipe</button>
+        </a>
+    </div>
+</div>
+
+<!-- Recipe Cards -->
+<div class="recipe-grid">
+    {% for recipe in recipes %}
+    <div class="recipe-card">
+        <h3>{{ recipe.name }}</h3>
+        <p class="category">{{ recipe.category }}</p>
+        <p><strong>Ingredients:</strong> {{ recipe.ingredients|truncatechars:100 }}</p>
+        <p><strong>Steps:</strong> {{ recipe.steps|truncatechars:100 }}</p>
+        <div class="card-actions">
+            <a href="{% url 'edit_recipe' recipe.id %}">
+                <button type="button" class="btn btn-success">Edit</button>
+            </a>
+            <a href="{% url 'delete_recipe' recipe.id %}">
+                <button type="button" class="btn btn-danger">Delete</button>
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <p>No recipes found.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
