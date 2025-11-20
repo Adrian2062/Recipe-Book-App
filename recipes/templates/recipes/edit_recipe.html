@@ -2,15 +2,13 @@
 {% block content %}
 
 <div class="container">
-    <h2 style="color:#ff6f61; margin-top:20px;">Delete Recipe</h2>
+    <h2 style="color:#ff6f61; margin-top:20px;">Edit Recipe</h2>
 
-    <p>Are you sure you want to delete <strong>{{ recipe.name }}</strong>?</p>
-
-    <form method="post" class="recipe-form">
+    <form method="POST" enctype="multipart/form-data" class="recipe-form">
         {% csrf_token %}
-        
-        <button type="submit" class="delete-btn">Yes, Delete</button>
+        {{ form.as_p }}
 
+        <button type="submit">Update Recipe</button>
         <a href="{% url 'recipe_list' %}" class="cancel-btn" 
            style="padding: 12px 25px; border-radius: 6px; text-decoration:none; font-weight:500; margin-left:10px; display:inline-block;">
            Cancel
